@@ -3,3 +3,4 @@
 - {DONE} Creating the order model and User Creation AND User Creation
 - {DONE} JWT Authentication with Djoser
 - {DONE} CRUD operations on orders
+- {DONE} Documenting the REST API with Swagger using DRF-Yasg and Deploying The REST API to Heroku

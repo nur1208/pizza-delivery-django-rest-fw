@@ -3,8 +3,9 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from . import serializers
 from .models import Order
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django.contrib.auth import get_user_model
+from drf_yasg.utils import swagger_auto_schema
 
 User=get_user_model()
 # Create your views here.
@@ -20,8 +21,8 @@ HELLO_ORDER_VIEW = HelloOrderView.as_view()
 class OrderView(generics.GenericAPIView):
     serializer_class=serializers.OrderSerializer
     queryset = Order.objects.all()
-    permission_classes=[IsAuthenticated]
-    
+    permission_classes=[IsAuthenticatedOrReadOnly]
+    @swagger_auto_schema(operation_summary="收到所有订单 (Get all Orders)")    
     def get(self,request):
         orders=Order.objects.all()
 
@@ -30,7 +31,7 @@ class OrderView(generics.GenericAPIView):
 
         return Response(data=serializer.data,
             status=status.HTTP_200_OK)
-    
+    @swagger_auto_schema(operation_summary="创建订单 (Create an order)")
     def post(self,request):
 
         serializer=self.serializer_class(data=request.data)
@@ -52,6 +53,8 @@ class OrderIdView(generics.GenericAPIView):
     permission_classes=[IsAuthenticated]
     # queryset = Order.objects.all()
 
+
+    @swagger_auto_schema(operation_summary="按订单ID查看订单的详细信息 (View the detail of an order by its ID)")
     def get(self, request,order_id):
 
 
@@ -63,6 +66,7 @@ class OrderIdView(generics.GenericAPIView):
         return Response(data=serializer.data,
             status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(operation_summary="按订单ID更新订单 (Update an order by its ID)")
     def put(self,request,order_id):
         
         order=get_object_or_404(Order,pk=order_id)
@@ -78,7 +82,8 @@ class OrderIdView(generics.GenericAPIView):
 
         return Response(data=serializer.errors,
             status=status.HTTP_400_BAD_REQUEST)
-    
+
+    @swagger_auto_schema(operation_summary="按订单ID删除订单 (Delete an order by its ID)")
     def delete(self, request,order_id):        
         order =get_object_or_404(Order,id=order_id)
 
@@ -90,6 +95,7 @@ ORDER_ID_VIEW = OrderIdView.as_view()
 class UpdateOrderStatusView(generics.GenericAPIView):
     serializer_class=serializers.OrderStatusUpdateSerializer
     permission_classes=[IsAuthenticated, IsAdminUser]
+    @swagger_auto_schema(operation_summary="更新订单的状态 (Update the status of an order)")
 
     def put(self, request,order_id):
         order=get_object_or_404(Order,pk=order_id)
@@ -112,6 +118,7 @@ UPDATE_ORDER_STATUS_VIEW = UpdateOrderStatusView.as_view()
 class UserOrdersView(generics.GenericAPIView):
     serializer_class=serializers.OrderSerializer
     permission_classes=[IsAuthenticated,IsAdminUser]
+    @swagger_auto_schema(operation_summary="获取特定用户下达的所有订单 (Get all orders made by a specific user)")
 
     def get(self,request,user_id):
         user=User.objects.get(pk=user_id)
@@ -129,7 +136,7 @@ USER_ORDER_VIEW = UserOrdersView.as_view()
 class UserOrderDetailView(generics.GenericAPIView):
     serializer_class=serializers.OrderSerializer
     permission_classes=[IsAuthenticated,IsAdminUser]
-
+    @swagger_auto_schema(operation_summary="获取特定用户下的订单的详细信息 (Get the detail of an order made by a specific user)")
     def get(self,request,user_id,order_id):
         user=User.objects.get(pk=user_id)
 

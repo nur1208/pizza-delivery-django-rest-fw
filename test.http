@@ -3,7 +3,7 @@
 @access_token = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MjM0MjEzLCJqdGkiOiI5Njg0OTkxYmVkZmM0MzdkOTZiNWU0MzFhYWQ4Yjk0MyIsInVzZXJfaWQiOjF9.3xKB0pt24DrwG3W-KS0NNNbOd6Uxoc-fDg_PeKjtdlE
 
 @access_token_normal = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MjQyODE4LCJqdGkiOiI1NWM0ZjI5MDA1ZTM0ZjU0ODMyZDBjYmI3NjRjYzc1ZSIsInVzZXJfaWQiOjN9.6ADvLUoPVHjX4mMEPCZEPcjkLpgdITJmtWw7Mqx4gcU
-POST {{api_ulr}}/{{order_endpoint}}
+POST {{api_ulr}}/{{order_endpoint}}/
 Content-Type: application/json
 Authorization: {{access_token}}
 

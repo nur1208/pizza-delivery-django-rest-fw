@@ -1,3 +1,3 @@
 - {DONE} Django Project Set Up and Creating  the first API view
 - {DONE} Creating a custom user model
-- {DONE} Creating the order model and User Creation AND 
+- {DONE} Creating the order model and User Creation AND User Creation

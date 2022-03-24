@@ -1,0 +1,51 @@
+@api_ulr = http://localhost:8000
+@order_endpoint = orders
+@access_token = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MjM0MjEzLCJqdGkiOiI5Njg0OTkxYmVkZmM0MzdkOTZiNWU0MzFhYWQ4Yjk0MyIsInVzZXJfaWQiOjF9.3xKB0pt24DrwG3W-KS0NNNbOd6Uxoc-fDg_PeKjtdlE
+
+@access_token_normal = Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ4MjQyODE4LCJqdGkiOiI1NWM0ZjI5MDA1ZTM0ZjU0ODMyZDBjYmI3NjRjYzc1ZSIsInVzZXJfaWQiOjN9.6ADvLUoPVHjX4mMEPCZEPcjkLpgdITJmtWw7Mqx4gcU
+POST {{api_ulr}}/{{order_endpoint}}
+Content-Type: application/json
+Authorization: {{access_token}}
+
+{
+    "size":"SMALL",
+    "quantity":1,
+    "flavour":"some flavour"
+}
+
+###
+GET {{api_ulr}}/{{order_endpoint}}/2/
+Authorization: {{access_token}}
+
+###
+
+PUT {{api_ulr}}/{{order_endpoint}}/2/
+Content-Type: application/json
+Authorization: {{access_token}}
+    # "quantity":100,
+
+{
+    "size":"SMALL",
+    "flavour":"some flavour"
+}
+
+###
+
+
+PUT {{api_ulr}}/{{order_endpoint}}/update-status/2/
+Content-Type: application/json
+Authorization: {{access_token_normal}}
+
+{
+    "order_status":"IN_TRANSIT"
+}
+###
+
+GET {{api_ulr}}/{{order_endpoint}}/user/1/
+Authorization: {{access_token}}
+
+###
+
+
+GET {{api_ulr}}/{{order_endpoint}}/user/1/order/2/
+Authorization: {{access_token}}
